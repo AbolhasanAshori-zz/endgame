@@ -1,0 +1,29 @@
+spring:
+  devtools:
+    restart:
+      enabled: true
+  flyway:
+    enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/endgame?createDatabaseIfNotExist=true
+    password: springstudent
+    username: springstudent
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+    properties:
+      hibernate:
+        hbm2ddl:
+          delimiter: ;
+#      javax:
+#        persistence:
+#          schema-generation:
+#            scripts:
+#              action: create
+#              create-target: src/main/resources/db/seed/create.sql
+
+#logging:
+#  level:
+#    web: debug

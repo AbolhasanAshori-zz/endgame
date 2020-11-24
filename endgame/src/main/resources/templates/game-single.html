@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="layouts/main :: head"></div>
+<body>
+	<div th:replace="layouts/main :: preloader"></div>
+	<div th:replace="layouts/main :: header-section"></div>
+	<div th:replace="layouts/main :: page-top"></div>
+
+	<!-- Games section -->
+	<section class="games-single-page">
+		<div class="container">
+			<div class="game-single-preview">
+				<img th:src="@{/img/games/big.jpg}" alt="">
+			</div>
+			<div class="row">
+				<div class="col-xl-9 col-lg-8 col-md-7 game-single-content">
+					<div class="gs-meta">11.11.18  /  in <a th:href="@{/games}">Games</a></div>
+					<h2 th:text="${game.title}" class="gs-title">Title</h2>
+					<div th:utext="${game.content}">
+						<h2>Content</h2>
+					</div>
+					<div class="geme-social-share pt-5 d-flex">
+						<p>Share:</p>
+						<a href="#"><i class="fa fa-pinterest"></i></a>
+						<a href="#"><i class="fa fa-facebook"></i></a>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="#"><i class="fa fa-dribbble"></i></a>
+						<a href="#"><i class="fa fa-behance"></i></a>
+					</div>
+				</div>
+				<div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
+					<div id="stickySidebar">
+						<div class="widget-item">
+							<div class="rating-widget">
+								<h4 class="widget-title">Ratings</h4>
+								<ul>
+									<li>Price<span th:text="|${rating.price}| + '/' + |${rating.top}|">5/5</span></li>
+									<li>Graphics<span th:text="|${rating.graphics}| + '/' + |${rating.top}|">5/5</span></li>
+									<li>Levels<span th:text="|${rating.levels}| + '/' + |${rating.top}|">5/5</span></li>
+									<li>Gameplay<span th:text="|${rating.gameplay}| + '/' + |${rating.top}|">5/5</span></li>
+									<li>Difficulty<span th:text="|${rating.difficulty}| + '/' + |${rating.top}|">5/5</span></li>
+								</ul>
+								<div class="rating">
+									<h5><i>Rating</i><span th:text="${rating.overall}">5</span><b th:text="' / ' + |${rating.top}"></b></h5>
+								</div>
+							</div>
+						</div>
+						<div class="widget-item">
+							<div class="testimonials-widget">
+								<h4 class="widget-title">Testimonials</h4>
+								<div class="testim-text">
+									<p th:text="${testimonial.content}">Text</p>
+									<h6 th:inline="text">
+										<span th:text="${#strings.capitalize(testimonial.author.firstName)} + ' ' + |${#strings.capitalize(testimonial.author.lastName)}| + ','">
+											Author
+										</span>
+										[[${testimonial.author.title}]]
+									</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Games end-->
+
+	<section class="game-author-section">
+		<div class="container">
+			<div class="game-author-pic set-bg" th:data-setbg="@{${game.author.profile}}"></div>
+			<div class="game-author-info">
+				<h4 th:inline="text">Written by: [[|${#strings.capitalize(game.author.firstName)}| + ' ' + |${#strings.capitalize(game.author.lastName)}|]]</h4>
+				<p th:text="${game.author.about}">About Author</p>
+			</div>
+		</div>
+	</section>
+
+	<div th:replace="layouts/main :: newsletter"></div>
+	<div th:replace="layouts/main :: footer-section"></div>
+	<div th:replace="layouts/main :: scripts"></div>
+	</body>
+</html>
