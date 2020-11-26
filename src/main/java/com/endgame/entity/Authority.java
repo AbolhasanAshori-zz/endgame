@@ -1,18 +1,9 @@
 package com.endgame.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "authorities",
-		indexes = {@Index(name = "ix_auth_email", columnList = "email_ix", unique = false)})
+@Table(name = "authorities", indexes = {@Index(name = "ix_auth_email", columnList = "email_ix")})
 public class Authority {
 
 	@Id
@@ -30,7 +21,6 @@ public class Authority {
 	}
 
 	public Authority(int id, User email, String authority) {
-		super();
 		this.id = id;
 		this.email = email;
 		this.authority = authority;

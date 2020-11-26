@@ -10,20 +10,22 @@
 	<section class="games-section">
 		<div class="container">
 			<ul class="game-filter">
-				<li th:each="char : ${chars}"><a th:text="${char}" th:href="|?char=${char}|"></a></li>
+				<!-- TODO Handle search -->
+				<li th:each="char : ${chars}"><a th:text="${char}" th:href="'?char=' + |${char}|"></a></li>
 			</ul>
 			<div class="row">
 				<div class="col-xl-7 col-lg-8 col-md-7">
 					<div class="row">
 						<div class="col-lg-4 col-md-6" th:each="game : ${games}">
 							<div class="game-item">
-								<img th:src="@{${game.image}}" th:alt="${game.title}" alt="#">
+								<img th:src="@{${game.image}}" th:alt="${game.title}" src="" alt="#">
 								<h5 th:text="${game.title}"></h5>
-								<a th:href="@{|/games/${game.id}|}" class="read-more">Read More  <img th:src="@{/img/icons/double-arrow.png}" alt="#"/></a>
+								<a th:href="@{|/games/${game.id}|}" class="read-more">Read More  <img th:src="@{/img/icons/double-arrow.png}" src="" alt="#"/></a>
 							</div>
 						</div>
 					</div>
 					<div class="site-pagination">
+						<!-- TODO: Create Pagination -->
 						<a href="#" class="active">01.</a>
 						<a href="#">02.</a>
 						<a href="#">03.</a>
@@ -35,12 +37,7 @@
 							<div class="categories-widget">
 								<h4 class="widget-title">categories</h4>
 								<ul>
-									<li><a href="">Games</a></li>
-									<li><a href="">Gaming Tips & Tricks</a></li>
-									<li><a href="">Online Games</a></li>
-									<li><a href="">Team Games</a></li>
-									<li><a href="">Community</a></li>
-									<li><a href="">Uncategorized</a></li>
+									<li th:each="category : ${categories}"><a th:text="${category.name}" href=""></a></li>
 								</ul>
 							</div>
 						</div>
@@ -48,12 +45,7 @@
 							<div class="categories-widget">
 								<h4 class="widget-title">platform</h4>
 								<ul>
-									<li><a href="">Xbox</a></li>
-									<li><a href="">X box 360</a></li>
-									<li><a href="">Play Station</a></li>
-									<li><a href="">Play Station VR</a></li>
-									<li><a href="">Nintendo Wii</a></li>
-									<li><a href="">Nintendo Wii U</a></li>
+									<li th:each="platform : ${platforms}"><a th:text="${platform.name}" href=""></a></li>
 								</ul>
 							</div>
 						</div>
@@ -61,12 +53,7 @@
 							<div class="categories-widget">
 								<h4 class="widget-title">Genre</h4>
 								<ul>
-									<li><a href="">Online</a></li>
-									<li><a href="">Adventure</a></li>
-									<li><a href="">S.F.</a></li>
-									<li><a href="">Strategy</a></li>
-									<li><a href="">Racing</a></li>
-									<li><a href="">Shooter</a></li>
+									<li th:each="genre : ${genres}"><a th:text="${genre.name}" href=""></a></li>
 								</ul>
 							</div>
 						</div>

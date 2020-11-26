@@ -1,12 +1,6 @@
 package com.endgame.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "newsletter", indexes = @Index(name = "ix_news_email", columnList = "email", unique = true))

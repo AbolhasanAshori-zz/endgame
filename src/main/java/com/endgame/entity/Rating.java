@@ -1,13 +1,6 @@
 package com.endgame.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "rating")
@@ -41,7 +34,6 @@ public class Rating {
 
 	public Rating(int id, Game game, int top, Float price, Float graphics, Float levels, Float gameplay,
 			Float difficulty, Float overall) {
-		super();
 		this.id = id;
 		this.game = game;
 		this.top = top;

@@ -1,15 +1,7 @@
 package com.endgame.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user", indexes = {@Index(name = "ix_user_email", columnList = "email", unique = true)})
@@ -18,10 +10,6 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@OneToMany(mappedBy = "authority", cascade = CascadeType.ALL)
-	@Transient
-	private Authority authority;
 	
 	private String profile;
 	
@@ -153,12 +141,5 @@ public class User {
 
 	public void setEnabled(byte enabled) {
 		this.enabled = enabled;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", authority=" + authority + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", username=" + username + ", password=" + password + ", email=" + email + ", age=" + age
-				+ ", enabled=" + enabled + "]";
 	}
 }

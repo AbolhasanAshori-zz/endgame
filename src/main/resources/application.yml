@@ -12,7 +12,7 @@ spring:
   jpa:
     show-sql: true
 #    hibernate:
-#      ddl-auto: update
+#      ddl-auto: create
     properties:
       hibernate:
         hbm2ddl:
@@ -22,7 +22,7 @@ spring:
 #          schema-generation:
 #            scripts:
 #              action: create
-#              create-target: src/main/resources/db/seed/create.sql
+#              create-target: create.sql
 
 #logging:
 #  level:

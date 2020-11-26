@@ -13,18 +13,18 @@ import com.endgame.entity.Game;
 public class GameServiceImpl implements GameService {
 
 	@Autowired
-	private GameRepository gameRepo;
+	private GameRepository gameRepository;
 	
 	@Override
 	public List<Game> findAll() {
-		return gameRepo.findAll();
+		return gameRepository.findAll();
 	}
 
 	@Override
 	public Game findById(Integer theId) {
-		Optional<Game> result = gameRepo.findById(theId);
+		Optional<Game> result = gameRepository.findById(theId);
 		
-		Game game = null;
+		Game game;
 		
 		if (result.isPresent())
 			game = result.get();
@@ -36,12 +36,12 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	public void save(Game object) {
-		gameRepo.save(object);
+		gameRepository.save(object);
 	}
 
 	@Override
 	public void deleteById(Integer theId) {
-		gameRepo.deleteById(theId);
+		gameRepository.deleteById(theId);
 	}
 
 }

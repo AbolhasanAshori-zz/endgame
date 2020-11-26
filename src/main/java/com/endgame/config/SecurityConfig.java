@@ -35,9 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers("/").permitAll()
-			.antMatchers("/games").authenticated()
-			.and()
-			.formLogin();
+			.antMatchers("/dashboard").authenticated();
+
+		http.formLogin()
+			.and().logout();
 	}
 	
 	@Bean
