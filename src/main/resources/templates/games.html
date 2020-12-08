@@ -9,27 +9,52 @@
 	<!-- Games section -->
 	<section class="games-section">
 		<div class="container">
-			<ul class="game-filter">
-				<!-- TODO Handle search -->
-				<li th:each="char : ${chars}"><a th:text="${char}" th:href="'?char=' + |${char}|"></a></li>
-			</ul>
+			<form class="form-filter" id="main-form-filter">
+				<ul class="game-filter form-filter-list">
+					<li th:each="char,iterStat : ${chars}"
+						th:inline="text">
+						<input class="form-filter-input"
+							   type="radio"
+							   name="char"
+							   form="main-form-filter"
+							   th:id="|char-${char}|"
+							   th:value="${char}"
+							   th:checked="${param.char} and ${param.char[0]} == ${char}">
+						<label th:class="(${param.char} and ${param.char[0]} == ${char}) ? 'active'"
+							   th:for="|char-${char}|">
+							<a>[[${char}]]</a>
+						</label>
+					</li>
+				</ul>
+			</form>
 			<div class="row">
 				<div class="col-xl-7 col-lg-8 col-md-7">
-					<div class="row">
+					<div id="game-container" class="row">
 						<div class="col-lg-4 col-md-6" th:each="game : ${games}">
 							<div class="game-item">
 								<img th:src="@{${game.image}}" th:alt="${game.title}" src="" alt="#">
 								<h5 th:text="${game.title}"></h5>
-								<a th:href="@{|/games/${game.id}|}" class="read-more">Read More  <img th:src="@{/img/icons/double-arrow.png}" src="" alt="#"/></a>
+								<a th:href="@{|/games/${game.id}|}" class="read-more">Read More
+									<img th:src="@{/img/icons/double-arrow.png}" src="" alt="#"/>
+								</a>
 							</div>
 						</div>
 					</div>
-					<div class="site-pagination">
-						<!-- TODO: Create Pagination -->
-						<a href="#" class="active">01.</a>
-						<a href="#">02.</a>
-						<a href="#">03.</a>
-					</div>
+					<ul class="site-pagination form-filter-list">
+						<li th:each="page,iterStat : ${#numbers.sequence(1, totalPages)}" th:inline="text">
+							<input class="form-filter-input"
+								   type="radio"
+								   name="page"
+								   form="main-form-filter"
+								   th:id="|page-${page}|"
+								   th:value="${page}"
+								   th:checked="(${param.page} and ${param.page[0]} == ${page})">
+							<label th:for="|page-${page}|"
+								   th:class="${param.page} ? (${param.page[0]} == ${page} ? 'active') : (${iterStat.first} ? 'active')">
+								<a>[[${#numbers.formatInteger(page, 2)} + '.']]</a>
+							</label>
+						</li>
+					</ul>
 				</div>
 				<div class="col-xl-3 col-lg-4 col-md-5 sidebar game-page-sideber">
 					<div id="stickySidebar">
@@ -37,7 +62,19 @@
 							<div class="categories-widget">
 								<h4 class="widget-title">categories</h4>
 								<ul>
-									<li th:each="category : ${categories}"><a th:text="${category.name}" href=""></a></li>
+									<li th:each="category : ${categories}">
+										<input type="radio"
+											   name="category"
+											   class="form-filter-input"
+											   form="main-form-filter"
+											   th:id="|category-${category.name}|"
+											   th:value="${#strings.toLowerCase(category.id)}"
+											   th:checked="(${param.category} and ${param.category[0]} ==  ${category.id})">
+										<label th:for="|category-${category.name}|"
+											   th:class="(${param.category} and ${param.category[0]} ==  ${category.id}) ? 'active'">
+											<a th:text="${category.name}">Category</a>
+										</label>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -45,7 +82,19 @@
 							<div class="categories-widget">
 								<h4 class="widget-title">platform</h4>
 								<ul>
-									<li th:each="platform : ${platforms}"><a th:text="${platform.name}" href=""></a></li>
+									<li th:each="platform : ${platforms}">
+										<input type="radio"
+											   name="platform"
+											   class="form-filter-input"
+											   form="main-form-filter"
+											   th:id="|platform-${platform.name}|"
+											   th:value="${platform.id}"
+											   th:checked="(${param.platform} and ${param.platform[0]} ==  ${platform.id})">
+										<label th:for="|platform-${platform.name}|"
+											   th:class="(${param.platform} and ${param.platform[0]} ==  ${platform.id}) ? 'active'">
+											<a th:text="${platform.name}">Platform</a>
+										</label>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -53,7 +102,19 @@
 							<div class="categories-widget">
 								<h4 class="widget-title">Genre</h4>
 								<ul>
-									<li th:each="genre : ${genres}"><a th:text="${genre.name}" href=""></a></li>
+									<li th:each="genre : ${genres}">
+										<input type="radio"
+											   name="genre"
+											   class="form-filter-input"
+											   form="main-form-filter"
+											   th:id="|genre-${genre.name}|"
+											   th:value="${genre.id}"
+											   th:checked="(${param.genre} and ${param.genre[0]} == ${genre.id})">
+										<label th:for="|genre-${genre.name}|"
+											   th:class="(${param.genre} and ${param.genre[0]} == ${genre.id}) ? 'active'">
+											<a th:text="${genre.name}">Genre</a>
+										</label>
+									</li>
 								</ul>
 							</div>
 						</div>

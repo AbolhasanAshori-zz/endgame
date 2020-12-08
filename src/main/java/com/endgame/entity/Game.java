@@ -37,7 +37,8 @@ public class Game {
 
 
 	public Game() {
-		
+
+
 	}
 
 	public Game(int id, String image, String title, String content, User author) {

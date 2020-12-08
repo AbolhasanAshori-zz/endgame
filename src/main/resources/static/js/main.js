@@ -80,4 +80,16 @@ $(window).on('load', function() {
 	});
 
 
+	/*------------------
+		Form Filter
+	--------------------*/
+	$(".form-filter-input").click(function(e){
+		let target = e.target;
+		let checked = $(target).attr("checked");
+		console.log(checked);
+		if (typeof checked !== typeof undefined && checked !== false){
+			$(target).attr("checked", false);
+		}
+		$(".form-filter").submit();
+	});
 })(jQuery);

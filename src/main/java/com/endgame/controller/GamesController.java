@@ -2,20 +2,37 @@ package com.endgame.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import com.endgame.entity.*;
-import com.endgame.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.endgame.entity.Category;
+import com.endgame.entity.Game;
+import com.endgame.entity.Genre;
+import com.endgame.entity.Platform;
+import com.endgame.entity.Rating;
+import com.endgame.entity.Testimonial;
+import com.endgame.service.CategoryService;
+import com.endgame.service.GameService;
+import com.endgame.service.GenreService;
+import com.endgame.service.PlatformService;
+import com.endgame.service.RatingService;
+import com.endgame.service.TestimonialService;
 
 @Controller
 @RequestMapping("/games")
 public class GamesController {
 
+	// Services
 	private GameService gameService;
 	private TestimonialService testimonialService;
 	private RatingService ratingService;
@@ -29,7 +46,8 @@ public class GamesController {
 
 	@Autowired
 	public GamesController(GameService gameService, TestimonialService testimonialService,
-	                       RatingService ratingService, CategoryService categoryService, PlatformService platformService, GenreService genreService) {
+	                       RatingService ratingService, CategoryService categoryService,
+	                       PlatformService platformService, GenreService genreService) {
 		this.gameService = gameService;
 		this.testimonialService = testimonialService;
 		this.ratingService = ratingService;
@@ -39,23 +57,35 @@ public class GamesController {
 	}
 
 	@GetMapping
-	public String showGames(Model theModel) {
+	public String showGames(@RequestParam(required = false) Map<String, String> requestParams,
+	                        Model theModel) {
+		Page<Game> gamesPage;
+		List<Game> games;
 
 		// create alphabet list
 		List<Character> chars = new ArrayList<>();
 		for (char c = 'A'; c <= 'Z'; ++c)
 			chars.add(c);
 
-		List<Game> games = gameService.findAll();
+		if (requestParams.isEmpty()) {
+			gamesPage = gameService.findAll(PageRequest.of(0, 3, Sort.by("title")));
+			games = gamesPage.toList();
+		} else {
+			gamesPage = gameService.filterGames(requestParams);
+			games = gamesPage.toList();
+		}
+
 		List<Category> categories = categoryService.findAll();
 		List<Platform> platforms = platformService.findAll();
 		List<Genre> genres = genreService.findAll();
 
 		theModel.addAttribute("chars", chars);
-		theModel.addAttribute("games", games);
 		theModel.addAttribute("categories", categories);
 		theModel.addAttribute("platforms", platforms);
 		theModel.addAttribute("genres", genres);
+
+		theModel.addAttribute("games", games);
+		theModel.addAttribute("totalPages", gamesPage.getTotalPages());
 
 		return "games";
 	}
