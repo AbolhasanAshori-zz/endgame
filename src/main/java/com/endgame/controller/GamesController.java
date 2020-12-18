@@ -68,7 +68,7 @@ public class GamesController {
 			chars.add(c);
 
 		if (requestParams.isEmpty()) {
-			gamesPage = gameService.findAll(PageRequest.of(0, 3, Sort.by("title")));
+			gamesPage = gameService.findAll(PageRequest.of(0, 9, Sort.by("title")));
 			games = gamesPage.toList();
 		} else {
 			gamesPage = gameService.filterGames(requestParams);
@@ -87,6 +87,8 @@ public class GamesController {
 		theModel.addAttribute("games", games);
 		theModel.addAttribute("totalPages", gamesPage.getTotalPages());
 
+		theModel.addAttribute("title", "Games");
+
 		return "games";
 	}
 
@@ -100,6 +102,8 @@ public class GamesController {
 		theModel.addAttribute("game", theGame);
 		theModel.addAttribute("rating", theRating);
 		theModel.addAttribute("testimonial", theTestimonial);
+
+		theModel.addAttribute("title", theGame.getTitle());
 
 		return "game-single";
 	}

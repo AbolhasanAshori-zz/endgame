@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<html lang="zxx" xmlns:th="https://www.thymeleaf.org">
 <div th:replace="layouts/main :: head"></div>
 <body>
 	<div th:replace="layouts/main :: preloader"></div>
@@ -9,24 +9,9 @@
 	<!-- Games section -->
 	<section class="games-section">
 		<div class="container">
-			<form class="form-filter" id="main-form-filter">
-				<ul class="game-filter form-filter-list">
-					<li th:each="char,iterStat : ${chars}"
-						th:inline="text">
-						<input class="form-filter-input"
-							   type="radio"
-							   name="char"
-							   form="main-form-filter"
-							   th:id="|char-${char}|"
-							   th:value="${char}"
-							   th:checked="${param.char} and ${param.char[0]} == ${char}">
-						<label th:class="(${param.char} and ${param.char[0]} == ${char}) ? 'active'"
-							   th:for="|char-${char}|">
-							<a>[[${char}]]</a>
-						</label>
-					</li>
-				</ul>
-			</form>
+		
+			<div th:replace="layouts/main :: char-filter"></div>
+			
 			<div class="row">
 				<div class="col-xl-7 col-lg-8 col-md-7">
 					<div id="game-container" class="row">

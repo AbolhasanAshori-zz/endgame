@@ -70,7 +70,7 @@ public class GameServiceImpl implements GameService {
 		String character = requestParams.get("char");
 
 		int page = requestParams.get("page") != null ? Integer.parseInt(requestParams.get("page")) - 1 : 0;
-		int size = 3;
+		int size = 9;
 		int id;
 
 		List<Game> filteredGames = character != null ? gameRepository.findByTitleStartingWith(character) : gameRepository.findAll(Sort.by("title"));
